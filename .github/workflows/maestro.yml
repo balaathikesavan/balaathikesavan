@@ -24,4 +24,4 @@ jobs:
         run: |
           maestro cloud test-distribution run \
             https://github.com/balaathikesavan/balaathikesavan/releases/download/v1.0.0/chrome.apk \
-            android-flow.yaml
+             flows/login1.yaml
