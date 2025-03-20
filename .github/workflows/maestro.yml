@@ -1,0 +1,27 @@
+name: Run Maestro Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Maestro CLI
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
+      - name: Run Maestro Cloud Tests
+        env:
+          MAESTRO_API_KEY: ${{ secrets.MAESTRO_API_KEY }}
+        run: |
+          maestro cloud test-distribution run \
+            https://github.com/balaathikesavan/balaathikesavan/releases/download/v1.0.0/chrome.apk \
+            android-flow.yaml
