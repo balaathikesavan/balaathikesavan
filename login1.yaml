@@ -1,0 +1,30 @@
+appId: com.max.heymax
+
+---
+# Run the script to load credentials
+- runScript: ../pages/login1.js
+
+# Use the stored values
+- tapOn: ${output.login.appTitle}
+- extendedWaitUntil:
+    visible: ${output.login.loginButton}
+# Screenshot before tapping login
+- takeScreenshot: test-results/before_login.png
+
+- tapOn: ${output.login.loginButton}
+- tapOn: ${output.login.emailField}
+- inputText: ${output.login.email}
+- hideKeyboard
+
+- tapOn: ${output.login.passwordField}
+- inputText: ${output.login.password}
+- hideKeyboard
+- takeScreenshot: test-results/after_entering_credentials.png
+
+- tapOn:
+    text: ${output.login.loginButton}
+    index: 1
+# Screenshot after login attempt
+- takeScreenshot: test-results/after_login.png
+- runFlow:
+    file: ../pages/logout.yaml
